@@ -5,10 +5,13 @@ from apps.book.models import Tag
 from apps.book.serializers import TagSerializer
 
 
-@api_view()
+@api_view() # Define our http methods
 def list_tags(request):
-    tags = Tag.objects.all()
+    # ORM
+    tags = Tag.objects.all() # Complex Data type
 
-    data = TagSerializer(tags, many=True)
+    # DeSerialization
+    data = TagSerializer(tags, many=True) # Convert complex data type to primitive Python types
 
+    # Return JSOn
     return Response(data.data, status=status.HTTP_200_OK)
