@@ -4,6 +4,7 @@ from django.db import transaction
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 from apps.book.models import Book, Author
 from apps.book.serializers import ReadBookSerializer, CreateBookSerializer
 
@@ -43,3 +44,31 @@ def create_book(request):
 
 
     
+class BooksView(APIView):
+    # GET
+    def get(self, request):
+        # Get books from the database using ORM
+        books = Book.objects.all()
+
+        # Deserialization
+        data = ReadBookSerializer(books, many=True)
+
+        # Return JSON
+        return Response({'data': data.data}, status=status.HTTP_200_OK)
+
+    # POST
+    def post(self, request):
+        pass 
+
+    # DELETE
+    def delete(self, request):
+        pass 
+
+    # PUT
+    def put(self, request):
+        pass 
+
+    # PATCH
+    def patch(self, request):
+        pass
+
